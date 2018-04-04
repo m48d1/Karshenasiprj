@@ -1,0 +1,72 @@
+{% extends 'Master_Page.html' %}
+{% block content %}
+<div class="block-header">
+                <h2>داشبورد</h2>
+            </div>
+
+
+            <div class="row clearfix">
+                <!-- Task Info -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>وضعیت پروژه</h2>
+
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover dashboard-task-infos">
+                                    <thead>
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>عنوان</th>
+                                            <th>استاد راهنما</th>
+                                            <th>وضعیت پروژه</th>
+                                            <th>تاریخ تحویل</th>
+                                            <th>فرصت باقیمانده</th>
+                                            <th>جزیبات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for b in Data %}
+                                        <tr>
+                                            <td>{{ b.id }}</td>
+                                            <td>{{ b.Title }}</td>
+                                            <td>{{ b.Professor.FullName }}</td>
+                                            <td><span class="label bg-light-blue font-12">
+                                                {% ifequal b.status 1 %}
+                                                منتظر تایید استاد راهنما
+                                            {% endifequal %}
+                                            {% ifequal b.status 2 %}
+                                                منتظر تایید مدیر گروه
+                                                {% endifequal %}
+                                                {% ifequal b.status 3 %}
+                                                در حال پیاده سازی پروژه
+                                                {% endifequal %}
+                                            </span></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                {% ifequal b.status 1 %}
+                                                <button type="button" class="btn bg-indigo waves-effect js-sweetalert" data-type="accept" data-id="{{ b.id }}">تایید توسط استاد راهنما</button>
+                                                {% endifequal %}
+                                            {% ifequal b.status 2 %}
+                                                <button type="button" class="btn bg-indigo waves-effect js-sweetalert" data-type="accept" data-id="{{ b.id }}">تایید توسط مدیر گروه</button>
+                                            {% endifequal %}
+                                                <button type="button" class="btn btn-warning waves-effect js-sweetalert">جزییات پروژه</button>
+                                                <button class="btn btn-danger waves-effect js-sweetalert" data-type="deleteprj">حذف</button>
+                                                <button type="button" class="btn btn-info waves-effect js-sweetalert">راهنما</button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #END# Task Info -->
+            </div>
+
+
+{% endblock %}
