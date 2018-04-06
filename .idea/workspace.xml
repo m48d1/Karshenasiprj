@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1518243-d859-48fd-a539-100ea51de681" name="Default" comment="" />
+    <list default="true" id="c1518243-d859-48fd-a539-100ea51de681" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/DetailProject.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Karshenasi/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/Karshenasi/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KarshenasiDjango/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/KarshenasiDjango/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KarshenasiDjango/migrations/__pycache__/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KarshenasiDjango/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/KarshenasiDjango/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KarshenasiDjango/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/KarshenasiDjango/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Master_Page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Master_Page.html" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,17 +42,29 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/KarshenasiDjango/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
+            <state relative-caret-position="204">
+              <caret line="12" column="45" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddProfessor.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/AddProfessor.html">
+      <file leaf-file-name="AddProject.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/AddProject.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1887">
-              <caret line="111" selection-start-line="111" selection-end-line="120" selection-end-column="70" />
+            <state relative-caret-position="1190">
+              <caret line="70" column="38" selection-end-line="108" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DetailProject.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/DetailProject.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -49,17 +72,17 @@
       <file leaf-file-name="Master_Page.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/Master_Page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2040">
-              <caret line="120" selection-start-line="120" selection-end-line="120" />
+            <state relative-caret-position="-629">
+              <caret line="71" column="40" lean-forward="true" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/KarshenasiDjango/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+            <state relative-caret-position="255">
+              <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
               <folding>
                 <element signature="e#0#57#0" expanded="true" />
               </folding>
@@ -67,11 +90,29 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="dialogs.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/pages/ui/dialogs.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7242">
+              <caret line="426" column="68" selection-start-line="426" selection-start-column="68" selection-end-line="426" selection-end-column="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="persian-datepicker.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/persian-datepicker.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1921">
+              <caret line="113" column="21" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/KarshenasiDjango/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+            <state relative-caret-position="102">
+              <caret line="10" column="103" selection-start-line="10" selection-start-column="103" selection-end-line="10" selection-end-column="103" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -79,29 +120,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <file leaf-file-name="Dashboard.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/Dashboard.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132124">
-              <caret line="7772" column="18" selection-start-line="7772" selection-start-column="18" selection-end-line="7772" selection-end-column="18" />
+            <state relative-caret-position="431">
+              <caret line="323" column="54" selection-start-line="323" selection-start-column="54" selection-end-line="323" selection-end-column="54" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/Login.html">
+      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Karshenasi/wsgi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1156">
-              <caret line="68" column="82" lean-forward="true" selection-end-line="97" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Register.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/Register.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+            <state relative-caret-position="289">
+              <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
+              <folding>
+                <element signature="e#226#235#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -122,6 +157,8 @@
       <find>k</find>
       <find>ok</find>
       <find>Cancel</find>
+      <find>Student</find>
+      <find>StudentNumber</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -137,17 +174,19 @@
         <option value="$PROJECT_DIR$/static/plugins/sweetalert/sweetalert-dev.js" />
         <option value="$PROJECT_DIR$/static/plugins/sweetalert/sweetalert.css" />
         <option value="$PROJECT_DIR$/templates/AddProject.html" />
-        <option value="$PROJECT_DIR$/KarshenasiDjango/models.py" />
-        <option value="$PROJECT_DIR$/templates/Dashboard.html" />
         <option value="$PROJECT_DIR$/static/js/pages/ui/dialogs.js" />
         <option value="$PROJECT_DIR$/templates/AddProfessor.html" />
         <option value="$PROJECT_DIR$/Karshenasi/settings.py" />
         <option value="$PROJECT_DIR$/templates/Login.html" />
         <option value="$PROJECT_DIR$/KarshenasiDjango/urls.py" />
-        <option value="$PROJECT_DIR$/templates/Master_Page.html" />
-        <option value="$PROJECT_DIR$/KarshenasiDjango/views.py" />
         <option value="$PROJECT_DIR$/templates/Register.html" />
         <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/templates/DetailProject.html" />
+        <option value="$PROJECT_DIR$/KarshenasiDjango/models.py" />
+        <option value="$PROJECT_DIR$/KarshenasiDjango/views.py" />
+        <option value="$PROJECT_DIR$/templates/Master_Page.html" />
+        <option value="$PROJECT_DIR$/templates/Dashboard.html" />
+        <option value="$PROJECT_DIR$/Karshenasi/wsgi.py" />
       </list>
     </option>
   </component>
@@ -157,7 +196,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1498" />
@@ -173,61 +212,60 @@
         <subPane>
           <expand>
             <path>
-              <item name="Karshenasi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Karshenasiprj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="462c0819:PsiDirectoryNode" />
               <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Karshenasi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
-              <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Karshenasi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
+              <item name="Karshenasiprj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="462c0819:PsiDirectoryNode" />
               <item name="KarshenasiDjango" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Karshenasi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
+              <item name="Karshenasiprj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Karshenasi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
+              <item name="Karshenasiprj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Karshenasi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
+              <item name="Karshenasiprj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Karshenasi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
+              <item name="Karshenasiprj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Karshenasi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
+              <item name="Karshenasiprj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Karshenasi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="Karshenasiprj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Karshenasi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Karshenasi" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="Karshenasiprj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Karshenasiprj" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -240,6 +278,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/KarshenasiDjango" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -262,7 +301,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="Karshenasi.settings" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Mahdi\PycharmProjects\Karshenasi\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\Mahdi\PycharmProjects\Karshenasiprj\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -292,7 +331,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -300,9 +339,9 @@
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.30827886" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32897604" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32897604" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32897604" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22228146" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22654584" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.32995737" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32995737" />
@@ -321,24 +360,24 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22014925" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32897604" />
-      <window_info anchor="bottom" id="Python Console" order="9" weight="0.30827886" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39978212" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32897604" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Python Console" order="9" weight="0.30827886" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -352,7 +391,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/KarshenasiDjango/views.py</url>
-          <line>230</line>
+          <line>245</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
@@ -396,23 +435,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/AddProject.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="108" column="32" selection-start-line="108" selection-start-column="32" selection-end-line="108" selection-end-column="125" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/KarshenasiDjango/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Karshenasi/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2125">
@@ -653,13 +675,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/AddProject.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-44">
-          <caret line="54" column="70" selection-start-line="54" selection-start-column="70" selection-end-line="54" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/views/decorators/csrf.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
@@ -669,8 +684,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/pages/ui/dialogs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4454">
-          <caret line="262" column="53" selection-start-line="262" selection-start-column="53" selection-end-line="262" selection-end-column="53" />
+        <state relative-caret-position="7242">
+          <caret line="426" column="68" selection-start-line="426" selection-start-column="68" selection-end-line="426" selection-end-column="68" />
         </state>
       </provider>
     </entry>
@@ -678,13 +693,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2261">
           <caret line="133" column="33" selection-start-line="133" selection-start-column="33" selection-end-line="133" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/Dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="57" column="60" selection-start-line="57" selection-start-column="60" selection-end-line="57" selection-end-column="60" />
         </state>
       </provider>
     </entry>
@@ -702,16 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/KarshenasiDjango/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/utils/deprecation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="333">
@@ -723,20 +721,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
           <caret line="34" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/Master_Page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="120" selection-start-line="120" selection-end-line="120" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/KarshenasiDjango/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -761,12 +745,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/KarshenasiDjango/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="45" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/AddProject.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="70" column="38" selection-end-line="108" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/DetailProject.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/KarshenasiDjango/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="10" column="103" selection-start-line="10" selection-start-column="103" selection-end-line="10" selection-end-column="103" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/KarshenasiDjango/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="255">
+          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
           <folding>
             <element signature="e#0#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/Master_Page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-629">
+          <caret line="71" column="40" lean-forward="true" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/Dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="323" column="54" selection-start-line="323" selection-start-column="54" selection-end-line="323" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Karshenasi/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
+          <folding>
+            <element signature="e#226#235#0" expanded="true" />
           </folding>
         </state>
       </provider>
