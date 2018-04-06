@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractUser,AbstractBaseUser
 class Project(models.Model):
      id = models.AutoField(primary_key=True)
      Title = models.TextField()
-     StudentNumber = models.IntegerField()
+     Student = models.ForeignKey('Student',on_delete=models.CASCADE,null=True , related_name="Student")
      Professor = models.ForeignKey('Professor',on_delete=models.CASCADE,null=True , related_name="Davar0")
      Detail = models.TextField()
      Requirements = models.TextField()

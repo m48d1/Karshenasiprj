@@ -11,6 +11,7 @@ import recaptcha2
 
 def indexpage(request):
     if User.is_authenticated :
+        prjs1 = []
         prjs = []
         prfs = []
         if request.user.is_staff and request.user.is_superuser :
@@ -28,20 +29,28 @@ def indexpage(request):
 
         elif request.user.is_staff :
             try:
+                listref1 = Project.objects.filter(referee1_id =request.user.Professor.id)
+                listref2 = Project.objects.filter(referee2_id =request.user.Professor.id)
                 list = Project.objects.filter(Professor_id=request.user.Professor.id)
                 for x in list:
                     prjs.append(x)
+
+                for x in listref1 :
+                    prjs1.append(x)
+
+                for x in listref2 :
+                    prjs1.append(x)
             except:
                 prjs = None
                 prfs = None
         else:
             try:
-                prjs.append(Project.objects.get(StudentNumber = request.user.Student.StudentNumber))
+                prjs.append(Project.objects.get(Student_id = request.user.Student.id))
             except:
                 prjs  = None
                 prfs = None
 
-        return render(request, "Dashboard.html", {'Data' : prjs , 'Data2' : prfs })
+        return render(request, "Dashboard.html", {'Data' : prjs , 'Data2' : prfs , 'Data3' : prjs1 })
     else:
         return HttpResponseRedirect('/Login')
 
@@ -52,6 +61,11 @@ def loginpage(request):
 def registerpage(request):
     return render(request, "Register.html", {})
 
+
+def detailproject(request) :
+    stnumber = request.GET.get('StudentNumber')
+
+    return render(request , "")
 
 def addprjpage(request):
     if User.is_authenticated :
@@ -164,12 +178,13 @@ def addproject(request):
     if User.is_authenticated :
         if request.method == "POST":
             try :
-                Test = Project.objects.filter(StudentNumber=request.user.Student.StudentNumber).count()
+                Test = Project.objects.filter(Student_id=request.user.Student.id).count()
                 if Test == 1 :
                     return HttpResponse("Error2")
                 else:
                     newprj = Project()
                     newprj.Title = request.POST['Title']
+                    newprj.Student_id = request.user.Student_id
                     newprj.StudentNumber = request.user.Student.StudentNumber
                     newprj.Professor_id = request.POST['Professor']
                     newprj.Detail = request.POST['Detail']
@@ -292,7 +307,7 @@ def logouts(request):
 def FirstUploadPresentFile(request):
     if request.method == 'POST' and request.FILES['mypresentfile']:
         try:
-            prj = Project.objects.get(StudentNumber=request.user.Student.StudentNumber)
+            prj = Project.objects.get(Student_id=request.user.Student.id)
 
             myfile = request.FILES['mypresentfile']
             fs = FileSystemStorage()
@@ -310,7 +325,7 @@ def FirstUploadPresentFile(request):
 def EditUploadedPresentFile(request):
     if request.method == 'POST' and request.FILES['mypresentfile']:
         try:
-            prj = Project.objects.get(StudentNumber=request.user.Student.StudentNumber)
+            prj = Project.objects.get(Student_id=request.user.Student.id)
 
             myfile = request.FILES['mypresentfile']
             fs = FileSystemStorage()
@@ -327,7 +342,7 @@ def EditUploadedPresentFile(request):
 def FirstUploadProjectFile(request):
     if request.method == 'POST' and request.FILES['myprojectfile']:
         try:
-            prj = Project.objects.get(StudentNumber=request.user.Student.StudentNumber)
+            prj = Project.objects.get(Student_id=request.user.Student.id)
 
             myfile = request.FILES['myprojectfile']
             fs = FileSystemStorage()
@@ -347,7 +362,7 @@ def FirstUploadProjectFile(request):
 def EditUploadedProjectFile(request):
     if request.method == 'POST' and request.FILES['myprojectfile']:
         try:
-            prj = Project.objects.get(StudentNumber=request.user.Student.StudentNumber)
+            prj = Project.objects.get(Student_id=request.user.Student.id)
 
             myfile = request.FILES['myprojectfile']
             fs = FileSystemStorage()

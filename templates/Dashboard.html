@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="header">
                     {% ifequal request.user.is_staff 1 %}
-                        <h2>وضعیت پروژه ها</h2>
+                        <h2>وضعیت پروژه ها - استاد راهنما</h2>
                     {% else %}
                         <h2>وضعیت پروژه</h2>
                     {% endifequal %}
@@ -25,7 +25,7 @@
                                 <th>عنوان</th>
                                 <th>استاد راهنما</th>
                                 <th>وضعیت پروژه</th>
-                                <th>تاریخ  و ساعت تحویل</th>
+                                <th>تاریخ و ساعت تحویل</th>
                                 <th>داور اول</th>
                                 <th>داور دوم</th>
                                 <th>نمره</th>
@@ -56,13 +56,13 @@
                                         {% endifequal %}
                                             </span></td>
                                     <td>
-                                        <span>{{ b.DeadlineDate }}</span>
+                                        <span>{% if b.DeadlineDate %}{{ b.DeadlineDate }}{% endif %}</span>
                                         <br>
-                                        ساعت : <span>{{ b.DeadlineTime }}</span>
+                                        ساعت : <span>{% if b.DeadlineTime %}{{ b.DeadlineTime }}{% endif %}</span>
                                     </td>
                                     <td>{{ b.referee1.FullName }}</td>
-                                <td>{{ b.referee2.FullName }}</td>
-                                <td></td>
+                                    <td>{{ b.referee2.FullName }}</td>
+                                    <td></td>
                                     <td>
 
                                         {% ifequal request.user.is_staff 1 %}
@@ -88,17 +88,17 @@
                                                                         <div class="form-group">
                                                                             <div class="form-line">
                                                                                 {% if b.DeadlineDate %}
-                                                                                       <input class="form-control DeadlineDate"
-                                                                                       placeholder="تاریخ تحویل پروژه"
-                                                                                       type="text"
-                                                                                       value="{{ b.DeadlineDate }}"
-                                                                                       id="DeadlineDate{{ b.id }}">
-                                                                                    {% else %}
-                                                                                       <input class="form-control DeadlineDate"
-                                                                                       placeholder="تاریخ تحویل پروژه"
-                                                                                       type="text"
-                                                                                       id="DeadlineDate{{ b.id }}">
-                                                                                    {% endif %}
+                                                                                    <input class="form-control DeadlineDate"
+                                                                                           placeholder="تاریخ تحویل پروژه"
+                                                                                           type="text"
+                                                                                           value="{{ b.DeadlineDate }}"
+                                                                                           id="DeadlineDate{{ b.id }}">
+                                                                                {% else %}
+                                                                                    <input class="form-control DeadlineDate"
+                                                                                           placeholder="تاریخ تحویل پروژه"
+                                                                                           type="text"
+                                                                                           id="DeadlineDate{{ b.id }}">
+                                                                                {% endif %}
 
                                                                             </div>
                                                                         </div>
@@ -110,11 +110,12 @@
                                                                                         class="form-control">
                                                                                     {% if b.DeadlineTime %}
                                                                                         <option value="{{ b.DeadlineTime }}">{{ b.DeadlineTime }}
-                                                                                    </option>
-                                                                                        {% else %}
-                                                                                    <option value="0">ساعت تحویل پروژه
-                                                                                    </option>
-                                                                                        {% endif %}
+                                                                                        </option>
+                                                                                    {% else %}
+                                                                                        <option value="0">ساعت تحویل
+                                                                                            پروژه
+                                                                                        </option>
+                                                                                    {% endif %}
                                                                                     <option value="8">8</option>
                                                                                     <option value="9">9</option>
                                                                                     <option value="10">10</option>
@@ -138,12 +139,13 @@
                                                                                 <select id="referee1{{ b.id }}"
                                                                                         class="form-control">
                                                                                     {% if b.referee1 %}
-                                                                                    <option value="{{ b.referee1_id }}">{{ b.referee1.FullName }}
+                                                                                        <option value="{{ b.referee1_id }}">{{ b.referee1.FullName }}
                                                                                             - {{ b.referee1.Group }}</option>
-                                                                                    </option>
+                                                                                        </option>
                                                                                     {% else %}
-                                                                                    <option value="0">انتخاب داور اول
-                                                                                    </option>
+                                                                                        <option value="0">انتخاب داور
+                                                                                            اول
+                                                                                        </option>
                                                                                     {% endif %}
                                                                                     {% for x in Data2 %}
                                                                                         <option value="{{ x.Professor_id }}">{{ x.Professor.FullName }}
@@ -158,13 +160,14 @@
                                                                             <div class="form-line">
                                                                                 <select id="referee2{{ b.id }}"
                                                                                         class="form-control">
-                                                                                {% if b.referee2 %}
-                                                                                    <option value="{{ b.referee2_id }}">{{ b.referee2.FullName }}
+                                                                                    {% if b.referee2 %}
+                                                                                        <option value="{{ b.referee2_id }}">{{ b.referee2.FullName }}
                                                                                             - {{ b.referee2.Group }}</option>
-                                                                                    </option>
+                                                                                        </option>
                                                                                     {% else %}
-                                                                                    <option value="0">انتخاب داور دوم
-                                                                                    </option>
+                                                                                        <option value="0">انتخاب داور
+                                                                                            دوم
+                                                                                        </option>
                                                                                     {% endif %}
 
                                                                                     {% for x in Data2 %}
@@ -318,9 +321,11 @@
                                         <button type="button" class="btn btn-warning waves-effect js-sweetalert">جزییات
                                             پروژه
                                         </button>
+                                    {% if b.status < 4 and request.user.is_staff == 0 %}
                                         <button class="btn btn-danger btn-icon waves-effect js-sweetalert"
                                                 data-type="deleteprj"><i class="material-icons">delete_forever</i>
                                         </button>
+                                    {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -334,4 +339,84 @@
     </div>
 
 
+
+    {% if request.user.is_staff %}
+        <div class="row clearfix">
+            <!-- Task Info -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="header">
+
+                        <h2>وضعیت پروژه ها - داور</h2>
+
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover dashboard-task-infos">
+                                <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>عنوان</th>
+                                    <th>استاد راهنما</th>
+                                    <th>وضعیت پروژه</th>
+                                    <th>تاریخ و ساعت تحویل</th>
+                                    <th>داور اول</th>
+                                    <th>داور دوم</th>
+                                    <th>نمره</th>
+                                    <th>جزیبات</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+                                {% for b in Data3 %}
+                                    <tr>
+                                        <td>{{ b.id }}</td>
+                                        <td>{{ b.Title }}</td>
+                                        <td>{{ b.Professor.FullName }}</td>
+                                        <td><span class="label bg-light-blue font-12">
+                                            {% ifequal b.status 1 %}
+                                                منتظر تایید استاد راهنما
+                                            {% endifequal %}
+                                            {% ifequal b.status 2 %}
+                                                منتظر تایید مدیر گروه
+                                            {% endifequal %}
+                                            {% ifequal b.status 3 %}
+                                                در حال پیاده سازی پروژه
+                                            {% endifequal %}
+                                            {% ifequal b.status 4 %}
+                                                آپلود فایل ارائه و فایل پروژه
+                                            {% endifequal %}
+                                            {% ifequal b.status 5 %}
+                                                منتظر نمره گذاری توسط داوران و اساتید راهنما پس از تحویل حضوری
+                                            {% endifequal %}
+
+                                            </span></td>
+                                        <td>
+                                            <span>{{ b.DeadlineDate }}</span>
+                                            <br>
+                                            ساعت : <span>{{ b.DeadlineTime }}</span>
+                                        </td>
+                                        <td>{{ b.referee1.FullName }}</td>
+                                        <td>{{ b.referee2.FullName }}</td>
+                                        <td></td>
+                                        <td>
+                                        <a type="button" class="btn btn-warning waves-effect">
+                                            پروژه
+                                        </a>
+                                        <button class="btn btn-danger btn-icon waves-effect js-sweetalert"
+                                                data-type="deleteprj"><i class="material-icons">delete_forever</i>
+                                        </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Task Info -->
+        </div>
+    {% endif %}
 {% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'Master_Page.html' %}
+{% block content %}
+
+    <div class="block-header">
+                <h2>جزییات پروژه کارشناسی</h2>
+            </div>
+    <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <h2 class="card-inside-title"> الف)  مشخصات دانشجو</h2>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input class="form-control" value="{{ request.user.Student.FullName }}" placeholder="نام و نام خانوادگی" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input class="form-control" value="{{ request.user.Student.StudentNumber }}" placeholder="شماره دانشجویی" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <select class="form-control">
+                                        <option value="">رشته و گرایش</option>
+                                        <option value="10">کامپیوتر - سخت افزار</option>
+                                        <option value="20">کامپیوتر - نرم افزار</option>
+                                    </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input class="form-control" placeholder="تعداد واحد گذرانده" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h2 class="card-inside-title">ب) انتخاب استاد پروژه</h2>
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                    <select id="Professor" class="form-control">
+                                        <option value="">لیست اساتید</option>
+                                        {% for b in Data %}
+                                        <option value="{{ b.Professor_id }}">{{ b.Professor.FullName }} - {{ b.Professor.Group }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h2 class="card-inside-title">ج) مشخصات پروژه</h2>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="Title" class="form-control" placeholder="عنوان پروژه" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea id="Detail" rows="4" class="form-control" placeholder="معرفی و توضیحات پروژه" type="text"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea id="TagofProject" rows="3" class="form-control" placeholder="حداقل 3 واژه کلیدی ( معرف زمینه علمی ذیربط پروژه)" type="text"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea id="Requirements" rows="3" class="form-control" placeholder="امکانات و تجهیزات خاص مورد نیاز" type="text"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-2 col-sm-offset-5">
+                                <button type="button" class="btn btn-block btn-lg btn-info waves-effect js-sweetalert" data-type="ajax-loader">ثبت درخواست</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}
