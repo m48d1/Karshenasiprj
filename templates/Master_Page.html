@@ -32,6 +32,9 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="{% static "css/themes/all-themes.css"%}" rel="stylesheet" />
+
+    <!--- Calnedar -->
+    <link href="{% static "css/persian-datepicker.css" %}" rel="stylesheet" />
 </head>
 
 <body class="theme-blue">
@@ -174,9 +177,11 @@
 
     <!-- SweetAlert Plugin Js -->
     <script src="{% static "plugins/sweetalert/sweetalert.min.js" %}"></script>
-    <!-- Sparkline Chart Plugin Js -->
-    <script src="{% static "plugins/jquery-sparkline/jquery.sparkline.js" %}"></script>
 
+
+    <!--- Calnedar -->
+     <script src="{% static "js/persian-datepicker.js" %}"></script>
+    <script src="{% static "js/persian-date.min.js" %}"></script>
     <!-- Custom Js -->
     <script src="{% static "js/admin.js" %}"></script>
     <script src="{% static "js/pages/index.js" %}"></script>

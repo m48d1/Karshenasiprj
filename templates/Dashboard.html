@@ -1,72 +1,337 @@
 {% extends 'Master_Page.html' %}
 {% block content %}
-<div class="block-header">
-                <h2>داشبورد</h2>
-            </div>
+    <div class="block-header">
+        <h2>داشبورد</h2>
+    </div>
 
 
-            <div class="row clearfix">
-                <!-- Task Info -->
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>وضعیت پروژه</h2>
-
-                        </div>
-                        <div class="body">
-                            <div class="table-responsive">
-                                <table class="table table-hover dashboard-task-infos">
-                                    <thead>
-                                        <tr>
-                                            <th>ردیف</th>
-                                            <th>عنوان</th>
-                                            <th>استاد راهنما</th>
-                                            <th>وضعیت پروژه</th>
-                                            <th>تاریخ تحویل</th>
-                                            <th>فرصت باقیمانده</th>
-                                            <th>جزیبات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for b in Data %}
-                                        <tr>
-                                            <td>{{ b.id }}</td>
-                                            <td>{{ b.Title }}</td>
-                                            <td>{{ b.Professor.FullName }}</td>
-                                            <td><span class="label bg-light-blue font-12">
+    <div class="row clearfix">
+        <!-- Task Info -->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    {% ifequal request.user.is_staff 1 %}
+                        <h2>وضعیت پروژه ها</h2>
+                    {% else %}
+                        <h2>وضعیت پروژه</h2>
+                    {% endifequal %}
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-hover dashboard-task-infos">
+                            <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>عنوان</th>
+                                <th>استاد راهنما</th>
+                                <th>وضعیت پروژه</th>
+                                <th>تاریخ  و ساعت تحویل</th>
+                                <th>داور اول</th>
+                                <th>داور دوم</th>
+                                <th>نمره</th>
+                                <th>جزیبات</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for b in Data %}
+                                <tr>
+                                    <td>{{ b.id }}</td>
+                                    <td>{{ b.Title }}</td>
+                                    <td>{{ b.Professor.FullName }}</td>
+                                    <td><span class="label bg-light-blue font-12">
                                                 {% ifequal b.status 1 %}
-                                                منتظر تایید استاد راهنما
-                                            {% endifequal %}
-                                            {% ifequal b.status 2 %}
-                                                منتظر تایید مدیر گروه
+                                                    منتظر تایید استاد راهنما
                                                 {% endifequal %}
-                                                {% ifequal b.status 3 %}
-                                                در حال پیاده سازی پروژه
-                                                {% endifequal %}
+                                        {% ifequal b.status 2 %}
+                                            منتظر تایید مدیر گروه
+                                        {% endifequal %}
+                                        {% ifequal b.status 3 %}
+                                            در حال پیاده سازی پروژه
+                                        {% endifequal %}
+                                        {% ifequal b.status 4 %}
+                                            آپلود فایل ارائه و فایل پروژه
+                                        {% endifequal %}
+                                        {% ifequal b.status 5 %}
+                                            منتظر نمره گذاری توسط داوران و اساتید راهنما پس از تحویل حضوری
+                                        {% endifequal %}
                                             </span></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                {% ifequal b.status 1 %}
-                                                <button type="button" class="btn bg-indigo waves-effect js-sweetalert" data-type="accept" data-id="{{ b.id }}">تایید توسط استاد راهنما</button>
-                                                {% endifequal %}
-                                            {% ifequal b.status 2 %}
-                                                <button type="button" class="btn bg-indigo waves-effect js-sweetalert" data-type="accept" data-id="{{ b.id }}">تایید توسط مدیر گروه</button>
+                                    <td>
+                                        <span>{{ b.DeadlineDate }}</span>
+                                        <br>
+                                        ساعت : <span>{{ b.DeadlineTime }}</span>
+                                    </td>
+                                    <td>{{ b.referee1.FullName }}</td>
+                                <td>{{ b.referee2.FullName }}</td>
+                                <td></td>
+                                    <td>
+
+                                        {% ifequal request.user.is_staff 1 %}
+                                            {% if request.user.is_superuser == 1 %}
+                                                <button type="button"
+                                                        class="btn bg-light-green waves-effect"
+                                                        data-toggle="modal" data-target="#deadline{{ b.id }}">تحویل
+                                                    پروژه
+                                                </button>
+
+
+                                                <div class="modal fade" id="deadline{{ b.id }}" tabindex="-1"
+                                                     role="dialog">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="defaultModalLabel">مشخصات
+                                                                    تحویل پروژه</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row clearfix">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <div class="form-line">
+                                                                                {% if b.DeadlineDate %}
+                                                                                       <input class="form-control DeadlineDate"
+                                                                                       placeholder="تاریخ تحویل پروژه"
+                                                                                       type="text"
+                                                                                       value="{{ b.DeadlineDate }}"
+                                                                                       id="DeadlineDate{{ b.id }}">
+                                                                                    {% else %}
+                                                                                       <input class="form-control DeadlineDate"
+                                                                                       placeholder="تاریخ تحویل پروژه"
+                                                                                       type="text"
+                                                                                       id="DeadlineDate{{ b.id }}">
+                                                                                    {% endif %}
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <div class="form-line">
+                                                                                <select id="DeadlineTime{{ b.id }}"
+                                                                                        class="form-control">
+                                                                                    {% if b.DeadlineTime %}
+                                                                                        <option value="{{ b.DeadlineTime }}">{{ b.DeadlineTime }}
+                                                                                    </option>
+                                                                                        {% else %}
+                                                                                    <option value="0">ساعت تحویل پروژه
+                                                                                    </option>
+                                                                                        {% endif %}
+                                                                                    <option value="8">8</option>
+                                                                                    <option value="9">9</option>
+                                                                                    <option value="10">10</option>
+                                                                                    <option value="11">11</option>
+                                                                                    <option value="12">12</option>
+                                                                                    <option value="13">13</option>
+                                                                                    <option value="14">14</option>
+                                                                                    <option value="15">15</option>
+                                                                                    <option value="16">16</option>
+                                                                                    <option value="17">17</option>
+                                                                                    <option value="18">18</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row clearfix">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <div class="form-line">
+                                                                                <select id="referee1{{ b.id }}"
+                                                                                        class="form-control">
+                                                                                    {% if b.referee1 %}
+                                                                                    <option value="{{ b.referee1_id }}">{{ b.referee1.FullName }}
+                                                                                            - {{ b.referee1.Group }}</option>
+                                                                                    </option>
+                                                                                    {% else %}
+                                                                                    <option value="0">انتخاب داور اول
+                                                                                    </option>
+                                                                                    {% endif %}
+                                                                                    {% for x in Data2 %}
+                                                                                        <option value="{{ x.Professor_id }}">{{ x.Professor.FullName }}
+                                                                                            - {{ x.Professor.Group }}</option>
+                                                                                    {% endfor %}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <div class="form-line">
+                                                                                <select id="referee2{{ b.id }}"
+                                                                                        class="form-control">
+                                                                                {% if b.referee2 %}
+                                                                                    <option value="{{ b.referee2_id }}">{{ b.referee2.FullName }}
+                                                                                            - {{ b.referee2.Group }}</option>
+                                                                                    </option>
+                                                                                    {% else %}
+                                                                                    <option value="0">انتخاب داور دوم
+                                                                                    </option>
+                                                                                    {% endif %}
+
+                                                                                    {% for x in Data2 %}
+                                                                                        <option value="{{ x.Professor_id }}">{{ x.Professor.FullName }}
+                                                                                            - {{ x.Professor.Group }}</option>
+                                                                                    {% endfor %}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button"
+                                                                        class="btn btn-primary waves-effect js-sweetalert"
+                                                                        data-type="deadline" data-id="{{ b.id }}">
+                                                                    ثبت تغییرات
+                                                                </button>
+                                                                <button type="button"
+                                                                        class="btn btn-danger waves-effect"
+                                                                        data-dismiss="modal">بستن
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            {% endif %}
+
+                                            {% ifequal b.status 1 %}
+                                                <button type="button" class="btn bg-indigo waves-effect js-sweetalert"
+                                                        data-type="accept" data-id="{{ b.id }}">تایید توسط استاد راهنما
+                                                </button>
                                             {% endifequal %}
-                                                <button type="button" class="btn btn-warning waves-effect js-sweetalert">جزییات پروژه</button>
-                                                <button class="btn btn-danger waves-effect js-sweetalert" data-type="deleteprj">حذف</button>
-                                                <button type="button" class="btn btn-info waves-effect js-sweetalert">راهنما</button>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+
+
+                                            {% ifequal b.status 2 %}
+                                                {% if request.user.is_superuser == 1 %}
+                                                    <button type="button"
+                                                            class="btn bg-indigo waves-effect js-sweetalert"
+                                                            data-type="accept" data-id="{{ b.id }}">تایید توسط مدیر گروه
+                                                    </button>
+                                                {% endif %}
+                                            {% endifequal %}
+
+
+                                        {% else %}
+                                            {% if b.status >= 3 %}
+                                                <button type="button" class="btn bg-light-green waves-effect"
+                                                        data-toggle="modal" data-target="#presentmodal{{ b.id }}">آپلود
+                                                    فایل ارائه
+                                                </button>
+                                                <button type="button" class="btn bg-indigo waves-effect"
+                                                        data-toggle="modal" data-target="#projectmodal{{ b.id }}">آپلود
+                                                    فایل پروژه
+                                                </button>
+                                                <div class="modal fade in" id="presentmodal{{ b.id }}" tabindex="-1"
+                                                     role="dialog">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="defaultModalLabel">آپلود
+                                                                    فایل ارائه</h4>
+                                                            </div>
+                                                            {% if b.PresentFile %}
+                                                                <form action="/Upload/Presentation/Edit"
+                                                                      onsubmit="return ValidatePresentation(this);"
+                                                                      method="post"
+                                                                      enctype="multipart/form-data">
+                                                            {% else %}
+                                                                <form action="/Upload/Presentation"
+                                                                      onsubmit="return ValidatePresentation(this);"
+                                                                      method="post"
+                                                                      enctype="multipart/form-data">
+                                                            {% endif %}
+
+                                                            <div class="modal-body">
+
+                                                                {% csrf_token %}
+                                                                {% if b.PresentFile %}
+                                                                    <p class="m-b-5">فایل ارائه شما آپلود شده</p>
+                                                                    <a class="btn bg-indigo waves-effect m-b-10"
+                                                                       href="{{ b.PresentFile }}">مشاهده فایل ارائه</a>
+                                                                {% endif %}
+                                                                <p class="col-red">نکته مهم : تنها فرمت مجاز .Pdf می
+                                                                    باشد</p>
+                                                                <input type="file" name="mypresentfile">
+
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-primary waves-effect"
+                                                                        type="submit">آپلود
+                                                                </button>
+                                                                <button type="button"
+                                                                        class="btn btn-danger waves-effect"
+                                                                        data-dismiss="modal">بستن
+                                                                </button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade in" id="projectmodal{{ b.id }}" tabindex="-1"
+                                                     role="dialog">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="defaultModalLabel">آپلود
+                                                                    فایل پروژه</h4>
+                                                            </div>
+                                                            {% if b.ProjectFile %}
+                                                                <form action="/Upload/Project/Edit"
+                                                                      onsubmit="return ValidateProject(this);"
+                                                                      method="post"
+                                                                      enctype="multipart/form-data">
+                                                            {% else %}
+                                                                <form action="/Upload/Project"
+                                                                      onsubmit="return ValidateProject(this);"
+                                                                      method="post"
+                                                                      enctype="multipart/form-data">
+                                                            {% endif %}
+                                                            <div class="modal-body">
+                                                                {% csrf_token %}
+                                                                {% if b.ProjectFile %}
+                                                                    <p class="m-b-5">فایل پروژه شما آپلود شده</p>
+                                                                    <a class="btn bg-indigo waves-effect m-b-10"
+                                                                       href="{{ b.ProjectFile }}">مشاهده فایل پروژه</a>
+                                                                {% endif %}
+                                                                <p class="col-red">نکته مهم : تنها فرمت مجاز .Zip می
+                                                                    باشد</p>
+                                                                <input type="file" name="myprojectfile">
+                                                            </div>
+                                                            <div class="modal-footer">
+
+                                                                <button class="btn btn-primary waves-effect"
+                                                                        type="submit">آپلود
+                                                                </button>
+                                                                <button type="button"
+                                                                        class="btn btn-danger waves-effect"
+                                                                        data-dismiss="modal">بستن
+                                                                </button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endifequal %}
+                                        <button type="button" class="btn btn-warning waves-effect js-sweetalert">جزییات
+                                            پروژه
+                                        </button>
+                                        <button class="btn btn-danger btn-icon waves-effect js-sweetalert"
+                                                data-type="deleteprj"><i class="material-icons">delete_forever</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <!-- #END# Task Info -->
             </div>
+        </div>
+        <!-- #END# Task Info -->
+    </div>
 
 
 {% endblock %}

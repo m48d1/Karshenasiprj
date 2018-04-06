@@ -2501,7 +2501,7 @@ section.content {
   .btn:not(.btn-link):not(.btn-circle):hover {
     outline: none; }
   .btn:not(.btn-link):not(.btn-circle) i {
-    font-size: 20px;
+    font-size: 21px;
     position: relative;
     top: 3px; }
   .btn:not(.btn-link):not(.btn-circle) span {
@@ -8101,4 +8101,9 @@ html.ie11 .bs-searchbox .form-control {
 
 .dropdown-menu {
   text-align: right;
+}
+
+
+.btn-icon {
+  padding: 1.6px 5px;
 }

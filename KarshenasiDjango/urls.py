@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+
 urlpatterns = [
     url(r'Dashboard/AddProject/Add', views.addproject, name="AddProject"),
     url(r'Dashboard/AddProfessor/Add', views.addprofessor, name="AddProfessor"),
@@ -9,12 +10,16 @@ urlpatterns = [
     url(r'Dashboard/EditProfessor', views.editprofessor, name="EditProfessor"),
     url(r'Dashboard/DelProject', views.delproject, name="DeleteProject"),
     url(r'Dashboard/AcceptProject', views.acceptprj, name="AcceptProject"),
+    url(r'Dashboard/DeadLine', views.deadline, name="AcceptProject"),
     url(r'RegisterForm', views.Registers, name="RegisterForm"),
     url(r'Register', views.registerpage, name="RegisterPage"),
     url(r'LoginForm', views.logins, name="LoginForm"),
     url(r'Login', views.loginpage, name="LoginPage"),
     url(r'Logout', views.logouts, name="Logout"),
-
+    url(r'Upload/Presentation/Edit', views.EditUploadedPresentFile, name="EditPresentationFile"),
+    url(r'Upload/Project/Edit', views.EditUploadedProjectFile, name="EditProjectFile"),
+    url(r'Upload/Presentation', views.FirstUploadPresentFile, name="UploadPresentation"),
+    url(r'Upload/Project', views.FirstUploadProjectFile, name="UploadProject"),
     # url(r'^dashboard/user/'$, views.user , name="user"),
     url(r'Dashboard', views.indexpage, name="index"),
     url(r'', views.loginpage, name="index"),

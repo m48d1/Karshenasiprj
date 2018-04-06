@@ -49,6 +49,10 @@ $(function () {
             var id = $(this).data('id');
             editprofessor(id);
         }
+        else if (type === 'deadline') {
+            var id = $(this).data('id');
+            deadline(id);
+        }
     });
 });
 
@@ -183,6 +187,9 @@ function showAjaxLoaderMessage() {
             success: function(response) {
                 if (response == "Success") {
                     swal("پروژه با موفقیت ایجاد شد", "", "success");
+                }
+                else if (response == "Error2") {
+                    swal("امکان ثبت چندین پروژه وجود ندارد", "", "error");
                 }
                 else
                     swal("اشکال در ایجاد پروژه", "", "error");
@@ -418,7 +425,6 @@ function acceptproject(id) {
             success: function(response) {
                 if (response == "Success") {
                     swal("پروژه با موفقیت تایید شد", "", "success");
-                    location.reload();
                 }
                 else
                     swal("اشکال در تایید پروژه", "", "error");
@@ -429,6 +435,56 @@ function acceptproject(id) {
 
 
 }
+
+function deadline(id) {
+        swal({
+        title: "آیا از اطلاعات وارد شده اطمینان دارید ؟",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: "بله ، تعیین مشخصات تحویل",
+        cancelButtonText: "خیر ، بستن پنجره",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+    }, function () {
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+    }
+});
+        var DeadlineDate = $("#" + ("DeadlineDate" + id).toString()).val();
+        var DeadlineTime = $("#" + ("DeadlineTime" + id).toString()).val();
+        var referee1 = $("#" + ("referee1" + id).toString()).val();
+        var referee2 = $("#" + ("referee2" + id).toString()).val();
+        var serializeData =  { 'Id' : id , 'DeadlineDate' : DeadlineDate ,'DeadlineTime' : DeadlineTime ,'referee1' : referee1 ,'referee2' : referee2};
+        $.ajax({
+            url: "/Dashboard/DeadLine",
+            type: "POST",
+            data: serializeData,
+            success: function(response) {
+                if (response == "Success") {
+                    swal("مشخصات تحویل پروژه با موفقیت ثبت شد", "", "success");
+                }
+                else
+                    swal("اشکال در ثبت مشخصات تحویل پروژه", "", "error");
+            }
+        });
+    });
+
+
+
+}
+
+
 
 function getCookie(name) {
     var cookieValue = null;
@@ -445,3 +501,76 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+var _validFileExtensionsPresent = [".pdf"];
+function ValidatePresentation(oForm) {
+    var arrInputs = oForm.getElementsByTagName("input");
+    for (var i = 0; i < arrInputs.length; i++) {
+        var oInput = arrInputs[i];
+        if (oInput.type == "file") {
+            var sFileName = oInput.value;
+            if (sFileName.length > 0) {
+                var blnValid = false;
+                for (var j = 0; j < _validFileExtensionsPresent.length; j++) {
+                    var sCurExtension = _validFileExtensionsPresent[j];
+                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                        blnValid = true;
+                        break;
+                    }
+                }
+
+                if (!blnValid) {
+                    swal("اشکال در فرمت فایل ، فرمت فایل تنها می تواند PDF باشد", "", "error");
+                    return false;
+                }
+            }
+            else {
+                    swal("فایلی برای آپلود انتخاب نشده است", "", "error");
+                    return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+var _validFileExtensionsProject = [".zip"];
+function ValidateProject(oForm) {
+    var arrInputs = oForm.getElementsByTagName("input");
+    for (var i = 0; i < arrInputs.length; i++) {
+        var oInput = arrInputs[i];
+        if (oInput.type == "file") {
+            var sFileName = oInput.value;
+            if (sFileName.length > 0) {
+                var blnValid = false;
+                for (var j = 0; j < _validFileExtensionsProject.length; j++) {
+                    var sCurExtension = _validFileExtensionsProject[j];
+                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                        blnValid = true;
+                        break;
+                    }
+                }
+
+                if (!blnValid) {
+                    swal("اشکال در فرمت فایل ، فرمت فایل تنها می تواند Zip باشد", "", "error");
+                    return false;
+                }
+            }
+            else {
+                    swal("فایلی برای آپلود انتخاب نشده است", "", "error");
+                    return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+$(document).ready(function() {
+    $(".DeadlineDate").pDatepicker({
+        observer: true,
+    format: 'YYYY/MM/DD',
+    altField: '.observer-example-alt',
+        initialValue: false
+    });
+  });

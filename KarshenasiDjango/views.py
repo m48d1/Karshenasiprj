@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate,login,logout
 from KarshenasiDjango.models import Professor,Project,Student,User
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 import recaptcha2
@@ -11,19 +12,36 @@ import recaptcha2
 def indexpage(request):
     if User.is_authenticated :
         prjs = []
+        prfs = []
         if request.user.is_staff and request.user.is_superuser :
-            prjs = []
-            list = Project.objects.all()
-            for x in list:
-                prjs.append(x)
+            try:
+                list = Project.objects.all()
+                for x in list:
+                    prjs.append(x)
+
+                list2 = User.objects.all().filter(is_staff=True)
+                for x in list2:
+                    prfs.append(x)
+            except:
+                prjs = None
+                prfs = None
+
         elif request.user.is_staff :
-            prjs = []
-            list = Project.objects.filter(Professor_id=User.Professor.id)
-            for x in list:
-                prjs.append(x)
+            try:
+                list = Project.objects.filter(Professor_id=request.user.Professor.id)
+                for x in list:
+                    prjs.append(x)
+            except:
+                prjs = None
+                prfs = None
         else:
-            prjs.append(Project.objects.get(StudentNumber = request.user.Student.StudentNumber))
-        return render(request, "Dashboard.html", {'Data' : prjs })
+            try:
+                prjs.append(Project.objects.get(StudentNumber = request.user.Student.StudentNumber))
+            except:
+                prjs  = None
+                prfs = None
+
+        return render(request, "Dashboard.html", {'Data' : prjs , 'Data2' : prfs })
     else:
         return HttpResponseRedirect('/Login')
 
@@ -85,7 +103,7 @@ def addprofessor(request):
               newprf.save()
               newusr = User()
 
-              newusr.password = make_password(request.POST['MobilePhone'])
+              newusr.set_password(request.POST['MobilePhone'])
               newusr.username = request.POST['Email']
               newusr.email = request.POST['Email']
               newusr.is_staff = True
@@ -146,16 +164,20 @@ def addproject(request):
     if User.is_authenticated :
         if request.method == "POST":
             try :
-              newprj = Project()
-              newprj.Title = request.POST['Title']
-              newprj.StudentNumber = int(92213150)
-              newprj.Professor_id = request.POST['Professor']
-              newprj.Detail = request.POST['Detail']
-              newprj.Requirements = request.POST['Requirements']
-              newprj.TagofProject = request.POST['TagofProject']
-              newprj.status = 1
-              newprj.save()
-              return HttpResponse("Success")
+                Test = Project.objects.filter(StudentNumber=request.user.Student.StudentNumber).count()
+                if Test == 1 :
+                    return HttpResponse("Error2")
+                else:
+                    newprj = Project()
+                    newprj.Title = request.POST['Title']
+                    newprj.StudentNumber = request.user.Student.StudentNumber
+                    newprj.Professor_id = request.POST['Professor']
+                    newprj.Detail = request.POST['Detail']
+                    newprj.Requirements = request.POST['Requirements']
+                    newprj.TagofProject = request.POST['TagofProject']
+                    newprj.status = 1
+                    newprj.save()
+                    return HttpResponse("Success")
             except :
                 return HttpResponse("Error")
         else:
@@ -194,17 +216,23 @@ def acceptprj(request):
 
 
 
-def register(request):
-    if request.method == "POST":
-        try:
-            Change = Project.objects.get(id=request.POST['Id'])
-            Change.status = Change.status+1
-            Change.save()
-            return HttpResponse("Success")
-        except:
+def deadline(request):
+    if User.is_authenticated :
+        if request.method == "POST":
+            try:
+                Change = Project.objects.get(id=request.POST['Id'])
+                Change.DeadlineDate = request.POST['DeadlineDate']
+                Change.DeadlineTime = request.POST['DeadlineTime']
+                Change.referee1_id = request.POST['referee1']
+                Change.referee2_id = request.POST['referee2']
+                Change.save()
+                return HttpResponse("Success")
+            except:
+                return HttpResponse("Error")
+        else:
             return HttpResponse("Error")
     else:
-        return HttpResponse("Error")
+        return HttpResponseRedirect('/Login')
 
 
 
@@ -237,11 +265,6 @@ def Registers(request):
                 newstd.StudentNumber = request.POST['studentnumber']
                 newstd.FullName = request.POST['fullname']
                 newstd.MobilePhone = request.POST['mobilephone']
-                if (newstd.StudentField == 0) :
-                    newstd.StudentPrf_id = 1
-                else:
-                    newstd.StudentPrf_id = 2
-
                 newstd.save()
                 User.objects.create_user(username=request.POST['username'],password=request.POST['password'],email=request.POST['email'],Student_id= newstd.id)
                 Mahdi = authenticate(username=request.POST['username'],password=request.POST['password'])
@@ -264,3 +287,76 @@ def logouts(request):
         except:
             return HttpResponse("Error")
 
+
+
+def FirstUploadPresentFile(request):
+    if request.method == 'POST' and request.FILES['mypresentfile']:
+        try:
+            prj = Project.objects.get(StudentNumber=request.user.Student.StudentNumber)
+
+            myfile = request.FILES['mypresentfile']
+            fs = FileSystemStorage()
+            FileName = "[" + str(request.user.Student.StudentNumber) + "]" + "[PresentFile].pdf"
+            prj.PresentFile = FileName
+            prj.status = prj.status + 1
+            prj.save()
+            filename = fs.save(FileName, myfile)
+            return HttpResponseRedirect('/Dashboard')
+        except:
+            return HttpResponseRedirect('/Dashboard')
+    else:
+        return HttpResponseRedirect('/Dashboard')
+
+def EditUploadedPresentFile(request):
+    if request.method == 'POST' and request.FILES['mypresentfile']:
+        try:
+            prj = Project.objects.get(StudentNumber=request.user.Student.StudentNumber)
+
+            myfile = request.FILES['mypresentfile']
+            fs = FileSystemStorage()
+            FileName = "[" + str(request.user.Student.StudentNumber) + "]" + "[PresentFile].pdf"
+            prj.PresentFile = FileName
+            prj.save()
+            filename = fs.save(FileName, myfile)
+            return HttpResponseRedirect('/Dashboard')
+        except:
+            return HttpResponseRedirect('/Dashboard')
+    else:
+        return HttpResponseRedirect('/Dashboard')
+
+def FirstUploadProjectFile(request):
+    if request.method == 'POST' and request.FILES['myprojectfile']:
+        try:
+            prj = Project.objects.get(StudentNumber=request.user.Student.StudentNumber)
+
+            myfile = request.FILES['myprojectfile']
+            fs = FileSystemStorage()
+            FileName = "[" + str(request.user.Student.StudentNumber) + "]" + "[ProjectFile].zip"
+            prj.ProjectFile = FileName
+            prj.status = prj.status + 1
+            prj.save()
+            filename = fs.save(FileName, myfile)
+            return HttpResponseRedirect('/Dashboard')
+        except:
+            return HttpResponseRedirect('/Dashboard')
+    else:
+        return HttpResponseRedirect('/Dashboard')
+
+
+
+def EditUploadedProjectFile(request):
+    if request.method == 'POST' and request.FILES['myprojectfile']:
+        try:
+            prj = Project.objects.get(StudentNumber=request.user.Student.StudentNumber)
+
+            myfile = request.FILES['myprojectfile']
+            fs = FileSystemStorage()
+            FileName = "[" + str(request.user.Student.StudentNumber) + "]" + "[ProjectFile].zip"
+            prj.ProjectFile = FileName
+            prj.save()
+            filename = fs.save(FileName, myfile)
+            return HttpResponseRedirect('/Dashboard')
+        except:
+            return HttpResponseRedirect('/Dashboard')
+    else:
+        return HttpResponseRedirect('/Dashboard')

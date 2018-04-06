@@ -13,14 +13,14 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input class="form-control" placeholder="نام و نام خانوادگی" type="text" />
+                                            <input class="form-control" value="{{ request.user.Student.FullName }}" placeholder="نام و نام خانوادگی" type="text" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input class="form-control" placeholder="شماره دانشجویی" type="text" />
+                                            <input class="form-control" value="{{ request.user.Student.StudentNumber }}" placeholder="شماره دانشجویی" type="text" />
                                         </div>
                                     </div>
                                 </div>
