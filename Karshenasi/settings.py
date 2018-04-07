@@ -84,6 +84,9 @@ DATABASES = {
         'PASSWORD': 'sspsps909230',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': 'ALTER DATABASE Karshenasiprj CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci',
+        },
     }
 }
 
@@ -111,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
