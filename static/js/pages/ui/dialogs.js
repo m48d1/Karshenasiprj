@@ -53,6 +53,10 @@ $(function () {
             var id = $(this).data('id');
             deadline(id);
         }
+        else if (type === 'score') {
+            var id = $(this).data('id');
+            score(id);
+        }
     });
 });
 
@@ -482,6 +486,48 @@ function deadline(id) {
 
 
 
+}
+
+function score(id) {
+            swal({
+        title: "آیا از اطلاعات وارد شده اطمینان دارید ؟",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: "بله ، ثبت نمره",
+        cancelButtonText: "خیر ، بستن پنجره",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+    }, function () {
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+    }
+});
+        var Score = $("#" + ("Score" + id).toString()).val();
+        var serializeData =  { 'Id' : id , 'Score' : Score };
+        $.ajax({
+            url: "/Dashboard/Score",
+            type: "POST",
+            data: serializeData,
+            success: function(response) {
+                if (response == "Success") {
+                    swal("نمره با موفقیت ثبت شد", "", "success");
+                }
+                else
+                    swal("اشکال در ثبت نمره پروژه", "", "error");
+            }
+        });
+    });
 }
 
 

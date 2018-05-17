@@ -63,7 +63,15 @@ def registerpage(request):
 
 
 def detailproject(request) :
-    stnumber = request.GET.get('StudentNumber')
+    prj = Project.objects.get(id=request.GET['Id'])
+    if request.user.is_staff == 0 :
+        if prjid.Student_id == request.user.Student_id :
+            return render(request, "DetailProject.html", {'Data': prj})
+        else:
+            return render(request, "Dashboard.html")
+    else:
+        return render(request, "DetailProject.html", {'Data': prj})
+
 
     return render(request , "")
 
@@ -249,6 +257,26 @@ def deadline(request):
     else:
         return HttpResponseRedirect('/Login')
 
+def score(request):
+    if User.is_authenticated :
+        if request.method == "POST":
+            try:
+                Change = Project.objects.get(id=request.POST['Id'])
+                if Change.Professor_id == request.user.Professor_id:
+                    Change.Professor_Score = request.POST['Score']
+                elif Change.referee1_id == request.user.Professor_id:
+                    Change.referee1_Score = request.POST['Score']
+                elif Change.referee2_id == request.user.Professor_id:
+                    Change.referee2_Score = request.POST['Score']
+
+                Change.save()
+                return HttpResponse("Success")
+            except:
+                return HttpResponse("Error")
+        else:
+            return HttpResponse("Error")
+    else:
+        return HttpResponseRedirect('/Login')
 
 
 def logins(request):

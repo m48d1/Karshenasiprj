@@ -13,24 +13,26 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input class="form-control" value="{{ request.user.Student.FullName }}" placeholder="نام و نام خانوادگی" type="text" />
+                                            <input class="form-control" placeholder="{{ Data.Student.FullName }}" type="text" disabled />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input class="form-control" value="{{ request.user.Student.StudentNumber }}" placeholder="شماره دانشجویی" type="text" />
+                                            <input class="form-control" placeholder="{{ Data.Student.StudentNumber }}" type="text" disabled />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <select class="form-control">
-                                        <option value="">رشته و گرایش</option>
-                                        <option value="10">کامپیوتر - سخت افزار</option>
-                                        <option value="20">کامپیوتر - نرم افزار</option>
+                                            <select class="form-control" disabled>
+                                                {% if Data.Student.StudentField %}
+                                                    <option value="{{ Data.Student.StudentField }}">کامپیوتر - سخت افزار</option>
+                                                {% else %}
+                                                    <option value="{{ Data.Student.StudentField }}">کامپیوتر - نرم افزار</option>
+                                                {% endif %}
                                     </select>
                                         </div>
                                     </div>
@@ -38,7 +40,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input class="form-control" placeholder="تعداد واحد گذرانده" type="text" />
+                                            <input class="form-control"  placeholder="{{ Data.Student.StudentUnits }}" type="text" />
                                         </div>
                                     </div>
                                 </div>
@@ -49,11 +51,8 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <div class="form-line">
-                                    <select id="Professor" class="form-control">
-                                        <option value="">لیست اساتید</option>
-                                        {% for b in Data %}
-                                        <option value="{{ b.Professor_id }}">{{ b.Professor.FullName }} - {{ b.Professor.Group }}</option>
-                                        {% endfor %}
+                                    <select id="Professor" class="form-control" disabled>
+                                        <option value="{{ Data.Professor.id }}" >{{ Data.Professor.FullName }}</option>
                                     </select>
                                 </div>
                                     </div>
@@ -65,7 +64,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input id="Title" class="form-control" placeholder="عنوان پروژه" type="text" />
+                                            <input id="Title" class="form-control" type="text" placeholder="{{ Data.Title }}" disabled/>
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +73,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea id="Detail" rows="4" class="form-control" placeholder="معرفی و توضیحات پروژه" type="text"></textarea>
+                                            <textarea id="Detail" rows="4" class="form-control" placeholder="{{ Data.Detail }}" type="text" disabled></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -83,21 +82,16 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea id="TagofProject" rows="3" class="form-control" placeholder="حداقل 3 واژه کلیدی ( معرف زمینه علمی ذیربط پروژه)" type="text"></textarea>
+                                            <textarea id="TagofProject" rows="3" class="form-control" placeholder="{{ Data.TagofProject }}" type="text" disabled></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea id="Requirements" rows="3" class="form-control" placeholder="امکانات و تجهیزات خاص مورد نیاز" type="text"></textarea>
+                                            <textarea id="Requirements" rows="3" class="form-control" placeholder="{{ Data.Requirements }}" type="text" disabled></textarea>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-sm-2 col-sm-offset-5">
-                                <button type="button" class="btn btn-block btn-lg btn-info waves-effect js-sweetalert" data-type="ajax-loader">ثبت درخواست</button>
                                 </div>
                             </div>
 

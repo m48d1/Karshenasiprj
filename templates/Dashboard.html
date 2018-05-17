@@ -318,14 +318,59 @@
                                                 </div>
                                             {% endif %}
                                         {% endifequal %}
-                                        <button type="button" class="btn btn-warning waves-effect js-sweetalert">جزییات
+                                        <a href="/Dashboard/DetailProject?Id={{ b.id }}"
+                                           class="btn btn-warning waves-effect">جزییات
                                             پروژه
-                                        </button>
-                                    {% if b.status < 4 and request.user.is_staff == 0 %}
-                                        <button class="btn btn-danger btn-icon waves-effect js-sweetalert"
-                                                data-type="deleteprj"><i class="material-icons">delete_forever</i>
-                                        </button>
-                                    {% endif %}
+                                        </a>
+
+
+                                        {% if b.status >= 5 %}
+                                            <button class="btn btn-primary waves-effect"
+                                                    data-toggle="modal" data-target="#projectscoremodal{{ b.id }}"
+                                                    data-type="deleteprj">نمره گذاری
+                                            </button>
+                                            <div class="modal fade in" id="projectscoremodal{{ b.id }}" tabindex="-1"
+                                                 role="dialog">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="defaultModalLabel">نمره گذاری
+                                                                پروژه {{ b.Student.FullName }}</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input id="Score{{ b.id }}" class="form-control"
+                                                                           type="number"
+                                                                           placeholder="نمره را وارد کنید" max="20"
+                                                                           min="0"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+
+                                                            <button class="btn btn-primary waves-effect js-sweetalert"
+                                                                    data-id="{{ b.id }}" data-type="score">ثبت نمره
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-danger waves-effect"
+                                                                    data-dismiss="modal">بستن
+                                                            </button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        {% endif %}
+
+
+                                        {% if b.status < 3 and request.user.is_staff == 0 %}
+                                            <button class="btn btn-danger btn-icon waves-effect js-sweetalert"
+                                                    data-type="deleteprj"><i class="material-icons">delete_forever</i>
+                                            </button>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -401,12 +446,58 @@
                                         <td>{{ b.referee2.FullName }}</td>
                                         <td></td>
                                         <td>
-                                        <a type="button" class="btn btn-warning waves-effect">
-                                            پروژه
-                                        </a>
-                                        <button class="btn btn-danger btn-icon waves-effect js-sweetalert"
-                                                data-type="deleteprj"><i class="material-icons">delete_forever</i>
-                                        </button>
+                                            <a href="/Dashboard/DetailProject?Id={{ b.id }}"
+                                               class="btn btn-warning waves-effect">جزییات
+                                                پروژه
+                                            </a>
+                                            {% if b.status < 2 %}
+                                                <button class="btn btn-danger btn-icon waves-effect js-sweetalert"
+                                                        data-type="deleteprj"><i
+                                                        class="material-icons">delete_forever</i>
+                                                </button>
+                                            {% endif %}
+                                            {% if b.status >= 5 %}
+                                                <button class="btn btn-primary waves-effect"
+                                                        data-toggle="modal" data-target="#projectscoremodal{{ b.id }}"
+                                                        data-type="deleteprj">نمره گذاری
+                                                </button>
+                                                <div class="modal fade in" id="projectscoremodal{{ b.id }}"
+                                                     tabindex="-1"
+                                                     role="dialog">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="defaultModalLabel">نمره
+                                                                    گذاری
+                                                                    پروژه {{ b.Student.FullName }}</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <div class="form-line">
+                                                                        <input id="Score{{ b.id }}" class="form-control"
+                                                                               type="number"
+                                                                               placeholder="نمره را وارد کنید" max="20"
+                                                                               min="0"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+
+                                                                <button class="btn btn-primary waves-effect js-sweetalert"
+                                                                        data-id="{{ b.id }}" data-type="score">ثبت نمره
+                                                                </button>
+                                                                <button type="button"
+                                                                        class="btn btn-danger waves-effect"
+                                                                        data-dismiss="modal">بستن
+                                                                </button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}
