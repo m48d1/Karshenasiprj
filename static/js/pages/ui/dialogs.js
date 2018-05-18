@@ -57,6 +57,16 @@ $(function () {
             var id = $(this).data('id');
             score(id);
         }
+        else if (type === 'final') {
+            var id = $(this).data('id');
+            final(id);
+        }
+        else if (type === 'editprofileprof') {
+            editprofileprof();
+        }
+        else if (type === 'editprofilestudent') {
+            editprofilestudent();
+        }
     });
 });
 
@@ -298,6 +308,102 @@ function editprofessor(id) {
     });
 }
 
+function editprofileprof() {
+    swal({
+        title: "از اطلاعات وارد شده اطمینان دارید؟",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: "بله ، ثبت تغییرات",
+        cancelButtonText: "خیر ، بستن پنجره",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+    }, function () {
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+    }
+});
+        var FullName = $("#FullName").val();
+        var Email = $("#Email").val();
+        var MobilePhone = $("#MobilePhone").val();
+        var Username =  $("#Username").val();
+        var Password = $("#Password").val();
+        var serializeData =  { 'FullName' : FullName, 'Email' : Email , 'MobilePhone' : MobilePhone , 'Username' : Username , 'Password' : Password};
+        $.ajax({
+            url: "/Dashboard/EditProfileProf",
+            type: "POST",
+            data: serializeData,
+            success: function(response) {
+                if (response == "Success") {
+                    swal("تغییرات با موفقیت اعمال شد", "", "success");
+                    re
+                }
+                else
+                    swal("اشکال در اعمال تغییرات", "", "error");
+            }
+        });
+    });
+}
+
+
+function editprofilestudent() {
+    swal({
+        title: "از اطلاعات وارد شده اطمینان دارید؟",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: "بله ، ثبت تغییرات",
+        cancelButtonText: "خیر ، بستن پنجره",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+    }, function () {
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+    }
+});
+        var FullName = $("#FullName").val();
+        var StudentNumber = $("#StudentNumber").val();
+        var Email = $("#Email").val();
+        var MobilePhone = $("#MobilePhone").val();
+        var Username =  $("#Username").val();
+        var Password = $("#Password").val();
+        var serializeData =  {'FullName' : FullName,'StudentNumber' : StudentNumber , 'Email' : Email , 'MobilePhone' : MobilePhone , 'Username' : Username , 'Password' : Password};
+        $.ajax({
+            url: "/Dashboard/EditProfileStudent",
+            type: "POST",
+            data: serializeData,
+            success: function(response) {
+                if (response == "Success") {
+                    swal("تغییرات با موفقیت اعمال شد", "", "success");
+                }
+                else
+                    swal("اشکال در اعمال تغییرات", "", "error");
+            }
+        });
+    });
+}
+
+
 
 function deleteprofessor(id) {
 
@@ -525,6 +631,48 @@ function score(id) {
                 }
                 else
                     swal("اشکال در ثبت نمره پروژه", "", "error");
+            }
+        });
+    });
+}
+
+
+function final(id) {
+            swal({
+        title: "آیا از اطلاعات وارد شده اطمینان دارید ؟",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: "بله ، نهایی سازی نمرات",
+        cancelButtonText: "خیر ، بستن پنجره",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+    }, function () {
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+    }
+});
+        var serializeData =  { 'Id' : id };
+        $.ajax({
+            url: "/Dashboard/Final",
+            type: "POST",
+            data: serializeData,
+            success: function(response) {
+                if (response == "Success") {
+                    swal("پروژه با موفقیت نهایی سازی شد", "", "success");
+                }
+                else
+                    swal("اشکال در نهایی سازی پروژه", "", "error");
             }
         });
     });

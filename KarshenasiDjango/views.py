@@ -12,22 +12,10 @@ import recaptcha2
 def indexpage(request):
     if User.is_authenticated :
         prjs1 = []
+        prjs2 = []
         prjs = []
         prfs = []
-        if request.user.is_staff and request.user.is_superuser :
-            try:
-                list = Project.objects.all()
-                for x in list:
-                    prjs.append(x)
-
-                list2 = User.objects.all().filter(is_staff=True)
-                for x in list2:
-                    prfs.append(x)
-            except:
-                prjs = None
-                prfs = None
-
-        elif request.user.is_staff :
+        if request.user.is_staff :
             try:
                 listref1 = Project.objects.filter(referee1_id =request.user.Professor.id)
                 listref2 = Project.objects.filter(referee2_id =request.user.Professor.id)
@@ -39,7 +27,7 @@ def indexpage(request):
                     prjs1.append(x)
 
                 for x in listref2 :
-                    prjs1.append(x)
+                    prjs2.append(x)
             except:
                 prjs = None
                 prfs = None
@@ -50,7 +38,7 @@ def indexpage(request):
                 prjs  = None
                 prfs = None
 
-        return render(request, "Dashboard.html", {'Data' : prjs , 'Data2' : prfs , 'Data3' : prjs1 })
+        return render(request, "Dashboard.html", {'Data' : prjs , 'Data2' : prfs , 'Data3' : prjs1 , 'Data4' : prjs2})
     else:
         return HttpResponseRedirect('/Login')
 
@@ -61,19 +49,28 @@ def loginpage(request):
 def registerpage(request):
     return render(request, "Register.html", {})
 
+def editprofilepage(request):
+    return render(request, "EditProfile.html", {})
+
+
+def scorepage(request):
+    list2 = Project.objects.filter()
+    prfs = []
+    list = User.objects.all().filter(is_staff=True)
+    for x in list:
+        prfs.append(x)
+
+    return render(request, "ListofScore.html", {'Data' : list2 , 'Data2' : prfs})
 
 def detailproject(request) :
     prj = Project.objects.get(id=request.GET['Id'])
     if request.user.is_staff == 0 :
-        if prjid.Student_id == request.user.Student_id :
+        if prj.Student_id == request.user.Student_id :
             return render(request, "DetailProject.html", {'Data': prj})
         else:
             return render(request, "Dashboard.html")
     else:
         return render(request, "DetailProject.html", {'Data': prj})
-
-
-    return render(request , "")
 
 def addprjpage(request):
     if User.is_authenticated :
@@ -154,6 +151,50 @@ def editprofessor(request):
               changeprf.MobilePhone = request.POST['MobilePhone']
               changeprf.FullName = request.POST['FullName']
               changeprf.save()
+              return HttpResponse("Success")
+            except :
+              return HttpResponse("Error")
+        else:
+            return HttpResponse("Error")
+    else:
+        return HttpResponseRedirect('/Login')
+
+
+def editprofileprof(request):
+    if User.is_authenticated :
+        if request.method == "POST":
+            try :
+              changeusr = User.objects.get(id=request.user.id)
+              changeusr.set_password(request.POST['Password'])
+              changeusr.username = request.POST['Username']
+              changeusr.email = request.POST['Email']
+              changeusr.save()
+              changeprf = Professor.objects.get(id=request.user.Professor_id)
+              changeprf.MobilePhone = request.POST['MobilePhone']
+              changeprf.FullName = request.POST['FullName']
+              changeprf.save()
+              return HttpResponse("Success")
+            except :
+              return HttpResponse("Error")
+        else:
+            return HttpResponse("Error")
+    else:
+        return HttpResponseRedirect('/Login')
+
+def editprofilestudent(request):
+    if User.is_authenticated :
+        if request.method == "POST":
+            try :
+              changeusr = User.objects.get(id=request.user.id)
+              changeusr.set_password(request.POST['Password'])
+              changeusr.username = request.POST['Username']
+              changeusr.email = request.POST['Email']
+              changeusr.save()
+              changestud = Student.objects.get(id=request.user.Student_id)
+              changestud.StudentNumber = findgroup(request.POST['StudentNumber'])
+              changestud.MobilePhone = request.POST['MobilePhone']
+              changestud.FullName = request.POST['FullName']
+              changestud.save()
               return HttpResponse("Success")
             except :
               return HttpResponse("Error")
@@ -270,6 +311,23 @@ def score(request):
                     Change.referee2_Score = request.POST['Score']
 
                 Change.save()
+                return HttpResponse("Success")
+            except:
+                return HttpResponse("Error")
+        else:
+            return HttpResponse("Error")
+    else:
+        return HttpResponseRedirect('/Login')
+
+
+def final(request):
+    if User.is_authenticated :
+        if request.method == "POST":
+            try:
+                final = Project.objects.get(id=request.POST['Id'])
+                final.final_Score = (final.referee1_Score + final.referee2_Score + final.Professor_Score) / 3
+                final.status = final.status + 1
+                final.save()
                 return HttpResponse("Success")
             except:
                 return HttpResponse("Error")

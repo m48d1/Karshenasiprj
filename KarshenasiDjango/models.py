@@ -20,9 +20,10 @@ class Project(models.Model):
      referee2 = models.ForeignKey('Professor',on_delete=models.CASCADE,null=True , related_name="Davar2")
      DeadlineDate = models.TextField(null=True)
      DeadlineTime = models.IntegerField(null=True)
-     Professor_Score = models.IntegerField(null=True)
-     referee1_Score = models.IntegerField(null=True)
-     referee2_Score = models.IntegerField(null=True)
+     Professor_Score = models.FloatField(null=True)
+     referee1_Score = models.FloatField(null=True)
+     referee2_Score = models.FloatField(null=True)
+     final_Score = models.FloatField(null=True)
 
 class Professor(models.Model) :
     id = models.AutoField(primary_key=True)

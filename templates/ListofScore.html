@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="header">
                     {% ifequal request.user.is_staff 1 %}
-                        <h2>وضعیت پروژه ها - استاد راهنما</h2>
+                        <h2>وضعیت کل پروژه ها</h2>
                     {% else %}
                         <h2>وضعیت پروژه</h2>
                     {% endifequal %}
@@ -28,7 +28,7 @@
                                 <th>تاریخ و ساعت تحویل</th>
                                 <th>داور اول</th>
                                 <th>داور دوم</th>
-                                <th>نمره</th>
+                                <th>نمره نهایی</th>
                                 <th>جزیبات</th>
                             </tr>
                             </thead>
@@ -37,7 +37,7 @@
                                 <tr>
                                     <td>{{ b.id }}</td>
                                     <td>{{ b.Title }}</td>
-                                    <td>{{ b.Professor.FullName }}</td>
+                                    <td>{{ b.Professor.FullName }} | {{ b.Professor_Score }}</td>
                                     <td><span class="label bg-light-blue font-12">
                                                 {% ifequal b.status 1 %}
                                                     منتظر تایید استاد راهنما
@@ -63,13 +63,14 @@
                                         <br>
                                         ساعت : <span>{% if b.DeadlineTime %}{{ b.DeadlineTime }}{% endif %}</span>
                                     </td>
-                                    <td>{{ b.referee1.FullName }}</td>
-                                    <td>{{ b.referee2.FullName }}</td>
-                                    <td>{{ b.Professor_Score }}</td>
+                                    <td>{{ b.referee1.FullName }} | {{ b.referee1_Score }}
+                                    </td>
+                                    <td>{{ b.referee2.FullName }} | {{ b.referee2_Score }}</td>
+                                    <td>{{ b.final_Score }}</td>
                                     <td>
 
                                         {% ifequal request.user.is_staff 1 %}
-                                            {% if request.user.is_superuser == 1 %}
+                                            {% if request.user.is_superuser == 1 and b.status < 6 %}
                                                 <button type="button"
                                                         class="btn bg-light-green waves-effect"
                                                         data-toggle="modal" data-target="#deadline{{ b.id }}">تحویل
@@ -327,50 +328,19 @@
                                         </a>
 
 
-                                        {% if b.status == 5 and request.user.is_staff %}
-                                            <button class="btn btn-primary waves-effect"
-                                                    data-toggle="modal" data-target="#projectscoremodal{{ b.id }}">نمره گذاری
-                                            </button>
-                                            <div class="modal fade in" id="projectscoremodal{{ b.id }}" tabindex="-1"
-                                                 role="dialog">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="defaultModalLabel">نمره گذاری
-                                                                پروژه {{ b.Student.FullName }}</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <div class="form-line">
-                                                                    <input id="Score{{ b.id }}" class="form-control"
-                                                                           type="number"
-                                                                           placeholder="نمره را وارد کنید" max="20"
-                                                                           min="0"/>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
 
-                                                            <button class="btn btn-primary waves-effect js-sweetalert"
-                                                                    data-id="{{ b.id }}" data-type="score">ثبت نمره
-                                                            </button>
-                                                            <button type="button"
-                                                                    class="btn btn-danger waves-effect"
-                                                                    data-dismiss="modal">بستن
-                                                            </button>
-                                                        </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                        {% endif %}
 
 
                                         {% if b.status < 3 and request.user.is_staff == 0 %}
                                             <button class="btn btn-danger btn-icon waves-effect js-sweetalert"
                                                     data-type="deleteprj"><i class="material-icons">delete_forever</i>
+                                            </button>
+                                        {% endif %}
+                                        {% if b.status == 5 and b.status < 6  %}
+                                            <button type="button"
+                                                    class="btn btn-primary waves-effect js-sweetalert"
+                                                    data-type="final" data-id="{{ b.id }}">
+                                                نهایی سازی
                                             </button>
                                         {% endif %}
                                     </td>
@@ -385,261 +355,4 @@
         <!-- #END# Task Info -->
     </div>
 
-
-
-    {% if request.user.is_staff %}
-        <div class="row clearfix">
-            <!-- Task Info -->
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="header">
-
-                        <h2>وضعیت پروژه ها - داور اول</h2>
-
-                    </div>
-                    <div class="body">
-                        <div class="table-responsive">
-                            <table class="table table-hover dashboard-task-infos">
-                                <thead>
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th>عنوان</th>
-                                    <th>استاد راهنما</th>
-                                    <th>وضعیت پروژه</th>
-                                    <th>تاریخ و ساعت تحویل</th>
-                                    <th>داور اول</th>
-                                    <th>داور دوم</th>
-                                    <th>نمره</th>
-                                    <th>جزیبات</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-
-                                {% for b in Data3 %}
-                                    <tr>
-                                        <td>{{ b.id }}</td>
-                                        <td>{{ b.Title }}</td>
-                                        <td>{{ b.Professor.FullName }}</td>
-                                        <td><span class="label bg-light-blue font-12">
-                                            {% ifequal b.status 1 %}
-                                                منتظر تایید استاد راهنما
-                                            {% endifequal %}
-                                            {% ifequal b.status 2 %}
-                                                منتظر تایید مدیر گروه
-                                            {% endifequal %}
-                                            {% ifequal b.status 3 %}
-                                                در حال پیاده سازی پروژه
-                                            {% endifequal %}
-                                            {% ifequal b.status 4 %}
-                                                آپلود فایل ارائه و فایل پروژه
-                                            {% endifequal %}
-                                            {% ifequal b.status 5 %}
-                                                منتظر نمره گذاری توسط داوران و اساتید راهنما پس از تحویل حضوری
-                                            {% endifequal %}
-
-                                            </span></td>
-                                        <td>
-                                            <span>{{ b.DeadlineDate }}</span>
-                                            <br>
-                                            ساعت : <span>{{ b.DeadlineTime }}</span>
-                                        </td>
-                                        <td>{{ b.referee1.FullName }}</td>
-                                        <td>{{ b.referee2.FullName }}</td>
-                                        <td>{{ b.referee1_Score }}</td>
-                                        <td>
-                                            <a href="/Dashboard/DetailProject?Id={{ b.id }}"
-                                               class="btn btn-warning waves-effect">جزییات
-                                                پروژه
-                                            </a>
-                                            {% if b.status < 2 %}
-                                                <button class="btn btn-danger btn-icon waves-effect js-sweetalert"
-                                                        data-type="deleteprj"><i
-                                                        class="material-icons">delete_forever</i>
-                                                </button>
-                                            {% endif %}
-                                            {% if b.status >= 5 %}
-                                                <button class="btn btn-primary waves-effect"
-                                                        data-toggle="modal" data-target="#projectscoremodal{{ b.id }}"
-                                                        data-type="deleteprj">نمره گذاری
-                                                </button>
-                                                <div class="modal fade in" id="projectscoremodal{{ b.id }}"
-                                                     tabindex="-1"
-                                                     role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title" id="defaultModalLabel">نمره
-                                                                    گذاری
-                                                                    پروژه {{ b.Student.FullName }}</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <div class="form-line">
-                                                                        <input id="Score{{ b.id }}" class="form-control"
-                                                                               type="number"
-                                                                               placeholder="نمره را وارد کنید" max="20"
-                                                                               min="0"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-
-                                                                <button class="btn btn-primary waves-effect js-sweetalert"
-                                                                        data-id="{{ b.id }}" data-type="score">ثبت نمره
-                                                                </button>
-                                                                <button type="button"
-                                                                        class="btn btn-danger waves-effect"
-                                                                        data-dismiss="modal">بستن
-                                                                </button>
-                                                            </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- #END# Task Info -->
-        </div>
-
-
-
-
-                <div class="row clearfix">
-            <!-- Task Info -->
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="header">
-
-                        <h2>وضعیت پروژه ها - داور دوم</h2>
-
-                    </div>
-                    <div class="body">
-                        <div class="table-responsive">
-                            <table class="table table-hover dashboard-task-infos">
-                                <thead>
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th>عنوان</th>
-                                    <th>استاد راهنما</th>
-                                    <th>وضعیت پروژه</th>
-                                    <th>تاریخ و ساعت تحویل</th>
-                                    <th>داور اول</th>
-                                    <th>داور دوم</th>
-                                    <th>نمره</th>
-                                    <th>جزیبات</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-
-                                {% for b in Data4 %}
-                                    <tr>
-                                        <td>{{ b.id }}</td>
-                                        <td>{{ b.Title }}</td>
-                                        <td>{{ b.Professor.FullName }}</td>
-                                        <td><span class="label bg-light-blue font-12">
-                                            {% ifequal b.status 1 %}
-                                                منتظر تایید استاد راهنما
-                                            {% endifequal %}
-                                            {% ifequal b.status 2 %}
-                                                منتظر تایید مدیر گروه
-                                            {% endifequal %}
-                                            {% ifequal b.status 3 %}
-                                                در حال پیاده سازی پروژه
-                                            {% endifequal %}
-                                            {% ifequal b.status 4 %}
-                                                آپلود فایل ارائه و فایل پروژه
-                                            {% endifequal %}
-                                            {% ifequal b.status 5 %}
-                                                منتظر نمره گذاری توسط داوران و اساتید راهنما پس از تحویل حضوری
-                                            {% endifequal %}
-
-                                            </span></td>
-                                        <td>
-                                            <span>{{ b.DeadlineDate }}</span>
-                                            <br>
-                                            ساعت : <span>{{ b.DeadlineTime }}</span>
-                                        </td>
-                                        <td>{{ b.referee1.FullName }}</td>
-                                        <td>{{ b.referee2.FullName }}</td>
-                                        <td>{{ b.referee2_Score }}</td>
-                                        <td>
-                                            <a href="/Dashboard/DetailProject?Id={{ b.id }}"
-                                               class="btn btn-warning waves-effect">جزییات
-                                                پروژه
-                                            </a>
-                                            {% if b.status < 2 %}
-                                                <button class="btn btn-danger btn-icon waves-effect js-sweetalert"
-                                                        data-type="deleteprj"><i
-                                                        class="material-icons">delete_forever</i>
-                                                </button>
-                                            {% endif %}
-                                            {% if b.status >= 5 %}
-                                                <button class="btn btn-primary waves-effect"
-                                                        data-toggle="modal" data-target="#projectscoremodal{{ b.id }}"
-                                                        data-type="deleteprj">نمره گذاری
-                                                </button>
-                                                <div class="modal fade in" id="projectscoremodal{{ b.id }}"
-                                                     tabindex="-1"
-                                                     role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title" id="defaultModalLabel">نمره
-                                                                    گذاری
-                                                                    پروژه {{ b.Student.FullName }}</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <div class="form-line">
-                                                                        <input id="Score{{ b.id }}" class="form-control"
-                                                                               type="number"
-                                                                               placeholder="نمره را وارد کنید" max="20"
-                                                                               min="0"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-
-                                                                <button class="btn btn-primary waves-effect js-sweetalert"
-                                                                        data-id="{{ b.id }}" data-type="score">ثبت نمره
-                                                                </button>
-                                                                <button type="button"
-                                                                        class="btn btn-danger waves-effect"
-                                                                        data-dismiss="modal">بستن
-                                                                </button>
-                                                            </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- #END# Task Info -->
-        </div>
-
-
-
-    {% endif %}
 {% endblock %}

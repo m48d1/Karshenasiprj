@@ -1,0 +1,85 @@
+{% extends 'Master_Page.html' %}
+{% block content %}
+
+    <div class="block-header">
+                <h2>مشخصات کاربری</h2>
+            </div>
+    <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <h2 class="card-inside-title"> الف)  اطلاعات شخصی</h2>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            {% if user.is_staff %}
+                                                <input class="form-control" id="FullName" placeholder="نام و نام خانوادگی" type="text" value="{{ user.Professor.FullName }}"  />
+                                            {% else %}
+                                                <input class="form-control" id="FullName" placeholder="نام و نام خانوادگی" type="text" value="{{ user.Student.FullName }}" />
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            {% if user.is_staff %}
+                                                 <input class="form-control" id="MobilePhone" placeholder="شماره همراه" value="{{ user.Professor.MobilePhone }}" type="text" />
+                                            {% else %}
+                                                <input class="form-control" id="MobilePhone" placeholder="شماره همراه" value="{{ user.Student.MobilePhone }}" type="text" />
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                                    <input class="form-control" id="Email" placeholder="ایمیل" value="{{ user.email }}" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if user.is_staff == 0 %}
+                                                                    <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                                    <input class="form-control" id="StudentNumber" placeholder="شماره دانشجویی" value="{{ user.Student.StudentNumber }}" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <h2 class="card-inside-title">ب) اطلاعات کاربری</h2>
+                            <div class="row clearfix">
+                                                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                                    <input class="form-control" id="Username" placeholder="نام کاربری" value="{{ user.username }}" type="text" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                                    <input class="form-control" id="Password" placeholder="جهت اعمال تغییرات رمز عبور قبلی یا جدید خود را وارد کنید" type="password" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-2 col-sm-offset-5">
+                                    {% if user.is_staff %}
+                                        <button type="button" class="btn btn-block btn-lg btn-info waves-effect js-sweetalert" data-type="editprofileprof">اعمال تغییرات</button>
+                                        {% else %}
+                                        <button type="button" class="btn btn-block btn-lg btn-info waves-effect js-sweetalert" data-type="editprofilestudent">اعمال تغییرات</button>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
