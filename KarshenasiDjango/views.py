@@ -46,6 +46,17 @@ def loginpage(request):
     return render(request, "Login.html", {})
 
 
+def listofstdpage(request) :
+    if User.is_authenticated :
+        students = []
+        list = User.objects.all().filter(is_staff=False)
+        for x in list :
+            students.append(x)
+
+        return render(request,"ListofStudents.html",{'Data' : students})
+    else:
+        return HttpResponseRedirect('/Login')
+
 def registerpage(request):
     return render(request, "Register.html", {})
 
@@ -221,6 +232,45 @@ def delprofessor(request):
             return HttpResponse("Error")
     else:
         return HttpResponseRedirect('/Login')
+
+
+def editstudent(request):
+    if User.is_authenticated :
+        if request.method == "POST":
+            try :
+              changeusr = User.objects.get(id=request.POST['Id'])
+              changeusr.set_password(request.POST['Password'])
+              changeusr.username = request.POST['Username']
+              changeusr.email = request.POST['Email']
+              changeusr.save()
+              changestd = Student.objects.get(id=changeusr.Student_id)
+              changestd.Field = findgroup(request.POST['Group'])
+              changestd.MobilePhone = request.POST['MobilePhone']
+              changestd.FullName = request.POST['FullName']
+              changestd.save()
+              return HttpResponse("Success")
+            except :
+              return HttpResponse("Error")
+        else:
+            return HttpResponse("Error")
+    else:
+        return HttpResponseRedirect('/Login')
+
+
+def delstudent(request):
+    if User.is_authenticated :
+        if request.method == "POST":
+            try:
+                Student.objects.filter(id=request.POST['Id']).delete()
+                User.objects.filter(Student=request.POST['Id']).delete()
+                return HttpResponse("Success")
+            except:
+                return HttpResponse("Error")
+        else:
+            return HttpResponse("Error")
+    else:
+        return HttpResponseRedirect('/Login')
+
 
 
 def addproject(request):

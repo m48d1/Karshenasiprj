@@ -1,64 +1,8 @@
+
 {% extends 'Master_Page.html' %}
 {% block content %}
-        <div class="block-header">
-                <h2>فرم افزودن اساتید</h2>
-            </div>
-     <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="body">
-                            <h2 class="card-inside-title"> مشخصات استاد</h2>
-                            <div class="row clearfix">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="FullName" class="form-control" placeholder="نام و نام خانوادگی" type="text" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <select id="Group" class="form-control">
-                                        <option value="0">رشته و گرایش</option>
-                                        <option value="10">گروه شبکه های کامپیوتری و امنیت</option>
-                                        <option value="20">گروه فناوری اطلاعات</option>
-                                        <option value="30">گروه معماری سامانه های کامپیوتری</option>
-                                        <option value="40">گروه نرم افزار و سیستم های اطلاعاتی</option>
-                                        <option value="50">گروه هوش مصنوعی ، رباتیک ، رایانش</option>
-                                    </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="Email" class="form-control" placeholder="ایمیل (پست الکترونیکی)" type="email" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input id="MobilePhone" class="form-control" placeholder="تلفن همراه" type="tel" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-sm-2 col-sm-offset-5">
-                                <button type="button" class="btn btn-block btn-lg btn-info waves-effect js-sweetalert" data-type="ajax-loader2">افزودن استاد</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-     <div class="block-header">
-                <h2>لیست اساتید</h2>
+<div class="block-header">
+                <h2>لیست دانشجویان</h2>
             </div>
      <div class="row clearfix">
                 <!-- Task Info -->
@@ -75,7 +19,7 @@
                                         <tr>
                                             <th>ردیف</th>
                                             <th>نام و نام خانوادگی</th>
-                                            <th>گروه آموزشی</th>
+                                            <th>شماره دانشجویی</th>
                                             <th>تاریخ آخرین ورود</th>
                                             <th>ایمیل</th>
                                             <th>تلفن همراه</th>
@@ -85,15 +29,15 @@
                                     <tbody>
                                     {% for b in Data %}
                                         <tr>
-                                            <td>{{ b.id }}</td>
-                                            <td>{{ b.Professor.FullName }}</td>
-                                            <td>{{ b.Professor.Group }}</td>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ b.Student.FullName }}</td>
+                                            <td>{{ b.Student.StudentNumber }}</td>
                                             <td>{{ b.last_login }}</td>
                                             <td>{{ b.email }}</td>
-                                            <td>{{ b.Professor.MobilePhone }}</td>
+                                            <td>{{ b.Student.MobilePhone }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-warning waves-effect"  data-toggle="modal" data-target="#defaultModal{{ b.id }}" >تغییر مشخصات</button>
-                                                <button class="btn btn-danger waves-effect js-sweetalert" data-type="deleteprf" data-id="{{ b.Professor_id }}">حذف</button>
+                                                <button class="btn btn-danger waves-effect js-sweetalert" data-type="deletestd" data-id="{{ b.Student_id }}">حذف</button>
                                             </td>
                                         </tr>
                                         <div class="modal fade" id="defaultModal{{ b.id }}" tabindex="-1" role="dialog" style="display: none;">
@@ -105,24 +49,23 @@
                                                          <div class="modal-body">
                                                              <div class="form-group">
                                                                 <div class="form-line">
-                                                                     <input id="FullName{{ b.id }}" class="form-control" value="{{ b.Professor.FullName }}" placeholder="نام و نام خانوادگی" type="text" />
+                                                                     <input id="FullName{{ b.id }}" class="form-control" value="{{ b.Student.FullName }}" placeholder="نام و نام خانوادگی" type="text" />
                                                                 </div>
                                                              </div>
                                                              <div class="form-group">
                                                                 <div class="form-line">
-                                                                    <select id="Group{{ b.id }}" class="form-control">
-                                                                        <option value="0">رشته و گرایش</option>
-                                                                        <option value="10">گروه شبکه های کامپیوتری و امنیت</option>
-                                                                        <option value="20">گروه فناوری اطلاعات</option>
-                                                                        <option value="30">گروه معماری سامانه های کامپیوتری</option>
-                                                                        <option value="40">گروه نرم افزار و سیستم های اطلاعاتی</option>
-                                                                        <option value="50">گروه هوش مصنوعی ، رباتیک ، رایانش</option>
+                                                                    <select id="Field{{ b.id }}" class="form-control">
+                                                                        {% if b.Student.StudentField %}
+                                                                            <option value="0">کامپیوتر - نرم افزار</option>
+                                                                        {% else %}
+                                                                            <option value="1">کامپیوتر - سخت افزار</option>
+                                                                        {% endif %}
                                                                     </select>
                                                                 </div>
                                                              </div>
                                                              <div class="form-group">
                                                                 <div class="form-line">
-                                                                     <input id="MobilePhone{{ b.id }}" class="form-control" value="{{ b.Professor.MobilePhone }}" placeholder="نلفن همراه" type="tel" />
+                                                                     <input id="MobilePhone{{ b.id }}" class="form-control" value="{{ b.Student.MobilePhone }}" placeholder="نلفن همراه" type="tel" />
                                                                 </div>
                                                              </div>
                                                              <div class="form-group">
@@ -142,7 +85,7 @@
                                                              </div>
                                                          </div>
                                                      <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary waves-effect js-sweetalert" data-id="{{ b.Professor_id }}" data-type="editprf">ثبت تغییرات</button>
+                                                        <button type="button" class="btn btn-primary waves-effect js-sweetalert" data-id="{{ b.Student_id }}" data-type="editstd">ثبت تغییرات</button>
                                                         <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">بستن پنجره</button>
                                                      </div>
                                                  </div>

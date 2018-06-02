@@ -38,6 +38,10 @@ $(function () {
             var id = $(this).data('id');
             deleteprofessor(id);
         }
+        else if (type === 'deletestd') {
+            var id = $(this).data('id');
+            deletestudent(id);
+        }
         else if (type === 'deleteprj') {
             deleteproject(10);
         }
@@ -48,6 +52,10 @@ $(function () {
         else if (type === 'editprf') {
             var id = $(this).data('id');
             editprofessor(id);
+        }
+        else if (type === 'editstd') {
+            var id = $(this).data('id');
+            editstudent(id);
         }
         else if (type === 'deadline') {
             var id = $(this).data('id');
@@ -250,6 +258,7 @@ function showAjaxLoaderMessage2() {
             success: function(response) {
                 if (response == "Success") {
                     swal("استاد با موفقیت افزوده شد", "", "success");
+
                 }
                 else
                     swal("اشکال در افزودن استاد", "", "error");
@@ -449,6 +458,99 @@ function deleteprofessor(id) {
 
 
 }
+
+function editstudent(id) {
+    swal({
+        title: "از اطلاعات وارد شده اطمینان دارید؟",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: "بله ، ثبت تغییرات",
+        cancelButtonText: "خیر ، بستن پنجره",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+    }, function () {
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+    }
+});
+        var FullName = $("#" + ("FullName" + id).toString()).val();
+        var Field = $("#" + ("Field" + id).toString()).val();
+        var Email = $("#" + ("Email" + id).toString()).val();
+        var MobilePhone = $("#" + ("MobilePhone" + id).toString()).val();
+        var Username =  $("#" + ("Username" + id).toString()).val();
+        var Password = $("#" + ("Password" + id).toString()).val();
+        var serializeData =  {'Id' : id , 'FullName' : FullName,'Group' : Group , 'Email' : Email , 'MobilePhone' : MobilePhone , 'Username' : Username , 'Password' : Password};
+        $.ajax({
+            url: "/Dashboard/EditStudent",
+            type: "POST",
+            data: serializeData,
+            success: function(response) {
+                if (response == "Success") {
+                    swal("تغییرات با موفقیت اعمال شد", "", "success");
+                }
+                else
+                    swal("اشکال در اعمال تغییرات", "", "error");
+            }
+        });
+    });
+}
+
+function deletestudent(id) {
+
+        swal({
+        title: "آیا از حذف استاد اطمینان دارید ؟",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: "بله ، حذف استاد",
+        cancelButtonText: "خیر ، بستن پنجره",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+    }, function () {
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+    }
+});
+        var serializeData =  { 'Id' : id};
+        $.ajax({
+            url: "/Dashboard/DelStudent",
+            type: "POST",
+            data: serializeData,
+            success: function(response) {
+                if (response == "Success") {
+                    swal("دانشجو با موفقیت حذف شد", "", "success");
+                }
+                else
+                    swal("اشکال در حذف استاد", "", "error");
+            }
+        });
+    });
+
+
+
+}
+
 
 
 
