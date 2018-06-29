@@ -65,7 +65,7 @@
                                     </td>
                                     <td>{{ b.referee1.FullName }}</td>
                                     <td>{{ b.referee2.FullName }}</td>
-                                    <td>{{ b.Professor_Score }}</td>
+                                    <td>{{ b.final_Score }}</td>
                                     <td>
 
                                         {% ifequal request.user.is_staff 1 %}
@@ -219,7 +219,7 @@
 
 
                                         {% else %}
-                                            {% if b.status >= 3 %}
+                                            {% if b.status >= 3 and b.status < 6  %}
                                                 <button type="button" class="btn bg-light-green waves-effect"
                                                         data-toggle="modal" data-target="#presentmodal{{ b.id }}">آپلود
                                                     فایل ارائه
